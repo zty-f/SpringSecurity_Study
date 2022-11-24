@@ -25,6 +25,12 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!--SpringSecurity依赖启动器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
     </dependencies>
 
 
