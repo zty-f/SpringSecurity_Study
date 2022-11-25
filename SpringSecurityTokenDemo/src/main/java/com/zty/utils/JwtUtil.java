@@ -63,7 +63,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setId(uuid)              //唯一的ID
                 .setSubject(subject)   // 主题  可以是JSON数据
-                .setIssuer("sg")     // 签发者
+                .setIssuer("zty")     // 签发者
                 .setIssuedAt(now)      // 签发时间
                 .signWith(signatureAlgorithm, secretKey) //使用HS256对称加密算法签名, 第二个参数为秘钥
                 .setExpiration(expDate);
@@ -89,8 +89,8 @@ public class JwtUtil {
         user.setPassword("11111");
         String token = createJWT(user.toString());
         System.out.println(token);
-        Claims claims = parseJWT(token);
-        System.out.println(claims);
+        Claims claims = parseJWT("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNzA0M2ZiM2U5NDQ0MDgxOTc0MzhlMWRiYzViOTU4MSIsInN1YiI6IjEiLCJpc3MiOiJ6dHkiLCJpYXQiOjE2NjkzODM5OTIsImV4cCI6MTY2OTM4NzU5Mn0.mDj_Kwc8kMc6h_BK6x9tl72Ec1bOKxy84YZoQZrzMfc");
+        System.out.println(claims.getSubject());
     }
 
     /**
