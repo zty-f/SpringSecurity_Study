@@ -19,7 +19,7 @@ public class User implements Serializable {
     /**
     * 主键
     */
-    @TableId()
+    @TableId
     private Long id;
     /**
     * 用户名
