@@ -6,5 +6,7 @@ import com.zty.domain.User;
 
 public interface LoginService {
     ResponseResult login(User user);
+
+    ResponseResult loginOut();
 }
 
