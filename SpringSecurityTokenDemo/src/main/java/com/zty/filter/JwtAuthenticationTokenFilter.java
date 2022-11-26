@@ -56,10 +56,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new RuntimeException("用户未登录");
         }
         //4.存入SecurityContextHolder供后续过滤器使用
-        //TODO 存入权限信息
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,null);
+        //5.存入权限信息
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        //放行
+        //6.放行
         filterChain.doFilter(request,response);
     }
 }

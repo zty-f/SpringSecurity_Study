@@ -1,12 +1,15 @@
 package com.zty.domain;
 
-import lombok.AllArgsConstructor;
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @version V1.0
@@ -19,12 +22,34 @@ import java.util.Collection;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class LoginUser implements UserDetails {
     private User user;
+
+    private List<String> permissions;
+
+    @JSONField(serialize = false) //不能序列化SimpleGrantedAuthority包
+    private List<SimpleGrantedAuthority> authorities;
+
+    public LoginUser(User user, List<String> permissions) {
+        this.user = user;
+        this.permissions = permissions;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if (authorities!=null)return authorities;
+        //把权限信息封装
+        //1.传统写法
+        /*List<GrantedAuthority> res = new ArrayList<>();
+        for (String permission : permissions) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(permission);
+            res.add(simpleGrantedAuthority);
+        }*/
+        //2.stream流写法
+        authorities = permissions.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        return authorities;
     }
 
     @Override

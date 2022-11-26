@@ -1,5 +1,6 @@
 package com.zty.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @GetMapping("/test")
+    @PreAuthorize("hasAuthority('test')")
     public String test1(){
         return "Hello World!";
     }
