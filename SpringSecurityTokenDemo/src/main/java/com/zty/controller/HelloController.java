@@ -1,7 +1,9 @@
 package com.zty.controller;
 
+import com.zty.domain.ResponseResult;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,5 +22,10 @@ public class HelloController {
     @PreAuthorize("hasAuthority('system:test:list')")
     public String test1(){
         return "Hello World!";
+    }
+
+    @PostMapping("/testCors")
+    public ResponseResult test2(){
+        return new ResponseResult(200,"testCors");
     }
 }
