@@ -51,6 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //配置自定义异常处理
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                                 .accessDeniedHandler(accessDeniedHandler);
+
+        //SpringSecurity允许跨域
+        http.cors();
     }
 
     @Bean
