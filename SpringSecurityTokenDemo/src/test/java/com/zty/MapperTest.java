@@ -1,6 +1,7 @@
 package com.zty;
 
 import com.zty.domain.User;
+import com.zty.mapper.MenuMapper;
 import com.zty.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,21 @@ public class MapperTest {
     private UserMapper userMapper;
 
     @Autowired
+    private MenuMapper menuMapper;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Test
     public void testUserMapper(){
         List<User> users = userMapper.selectList(null);
         System.out.println(users);
+    }
+
+    @Test
+    public void testMenuMapper(){
+        List<String> perms = menuMapper.selectPermsByUserID(1L);
+        System.out.println(perms);
     }
 
     @Test

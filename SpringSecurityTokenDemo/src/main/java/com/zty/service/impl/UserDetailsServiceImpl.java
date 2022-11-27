@@ -3,6 +3,7 @@ package com.zty.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zty.domain.LoginUser;
 import com.zty.domain.User;
+import com.zty.mapper.MenuMapper;
 import com.zty.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +27,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private MenuMapper menuMapper;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //1.通过用户名查询用户信息
@@ -39,7 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         System.out.println("查询到的User信息："+user);
         //2.查询用户权限
-        List<String> list = new ArrayList<>(Arrays.asList("test","admin"));
+        List<String> list = menuMapper.selectPermsByUserID(user.getId());
 
         //3.封装成UserDetails返回
         return new LoginUser(user,list);
