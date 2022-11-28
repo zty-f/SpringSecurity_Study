@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @GetMapping("/test")
-    @PreAuthorize("hasAuthority('system:test:list')")
+    //@PreAuthorize("hasAuthority('system:test:list')")
+    @PreAuthorize("@ex.hasAuthority('system:test:list')") //使用自定义类来处理权限效验
     public String test1(){
         return "Hello World!";
     }
