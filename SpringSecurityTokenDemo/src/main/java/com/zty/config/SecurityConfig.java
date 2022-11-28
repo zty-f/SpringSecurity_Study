@@ -43,6 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .authorizeRequests()
              // 对于登录接口 允许匿名访问
              .antMatchers("/user/login").anonymous()
+             //使用配置配置接口权限
+             .antMatchers("/testCors").hasAuthority("system:dept:cors")
              // 除上面外的所有请求全部需要鉴权认证
              .anyRequest().authenticated();
         //配置自定义jwt过滤器
